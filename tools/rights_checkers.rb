@@ -44,7 +44,7 @@ module Telegram
       end
 
       def self_can_send_text?(message)
-        user_muted?(message, Tools::BOT_ID)
+        !user_muted?(message, Tools::BOT_ID)
       end
 
       def user_in_chat?(message, id)

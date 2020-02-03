@@ -2,14 +2,15 @@ require 'require_all'
 require 'telegram/bot'
 require_rel 'emoji'
 require_rel 'tools'
-
-token = '1043894792:AAFvVjoNgTkTLEELc-JiAtHt-CibRdSrGoc' # YOUR API TOKEN GOES BETWEEN THE QUOTES
-
+puts 'started successfully'
+token = '' # YOUR API TOKEN GOES BETWEEN THE QUOTES
+begin
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
-    if message.command '/start'
-      text = 'Greetings, I am EmojiBot2020'
-      bot.send_message(message, text)
+    if message.command '/test'
+      text = 'bulgakke is ze best'
+      bot.respond_to_user(message, text)
+      puts 'Test passed, I guess'
 
     elsif message.command '/get_id'
       if message.reply_to_message
@@ -19,7 +20,7 @@ Telegram::Bot::Client.run(token) do |bot|
         text = 'Use this command as a reply to any of my messages'
       end
       
-=begin      
+     
       bot.respond_to_user(message, text)
 
     elsif message.command '/deleting_mode'
@@ -48,7 +49,9 @@ Telegram::Bot::Client.run(token) do |bot|
           bot.send_message(message, text)
         end
       end
-=end
     end
   end # bot.listen
 end # Client.run
+rescue => e
+  puts e
+end
