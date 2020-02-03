@@ -1,9 +1,7 @@
 class String
   def starts_with?(command)
     x = command.length - 1
-    return true if chars.slice(0..x).join == command
-
-    false
+    return chars.slice(0..x).join == command
   end
 end
 
