@@ -3,8 +3,8 @@ require 'telegram/bot'
 require_rel 'emoji'
 require_rel 'tools'
 puts 'started successfully'
-token = '' # YOUR API TOKEN GOES BETWEEN THE QUOTES
-begin
+# token = '' # YOUR API TOKEN GOES BETWEEN THE QUOTES
+
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     if message.command '/test'
@@ -24,13 +24,13 @@ Telegram::Bot::Client.run(token) do |bot|
       bot.respond_to_user(message, text)
 
     elsif message.command '/deleting_mode'
-      Emoji.mode = :deleting if message.from_owner?
+      message.chat.emojimode = :deleting if message.from_owner?
 
     elsif message.command '/editing_mode'
-      Emoji.mode = :editing if message.from_owner?
+      message.chat.emojimode = :editing if message.from_owner?
 
     elsif message.command '/skipping_mode'
-      Emoji.mode = :skipping if message.from_owner?
+      message.chat.emojimode = :skipping if message.from_owner?
 
       # elsif message.command '/something'
       #   `block`
@@ -38,7 +38,7 @@ Telegram::Bot::Client.run(token) do |bot|
 
     if message.text
       if bot.self_can_delete_messages?(message) && message.text.has_disallowed?
-        case Emoji.mode
+        case message.chat.emojimode
         when :deleting
           bot.delete(message)
 
@@ -52,6 +52,3 @@ Telegram::Bot::Client.run(token) do |bot|
     end
   end # bot.listen
 end # Client.run
-rescue => e
-  puts e
-end

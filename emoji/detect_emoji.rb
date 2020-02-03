@@ -4,16 +4,6 @@ require_relative 'exceptions'
 module Emoji
   module_function
 
-  attr_accessor :mode
-
-  def mode
-    @mode ||= :skipping
-  end
-
-  def mode=(value)
-    @mode = value
-  end
-
   def allowed_characters
     @allowed_characters = emojis + exceptions
     @allowed_characters.join.chars
