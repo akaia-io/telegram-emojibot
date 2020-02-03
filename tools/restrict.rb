@@ -6,7 +6,8 @@ module Telegram
       end
 
       def delete(message)
-        api.delete_message(chat_id: message.chat.id, message_id: message.message_id) if self_can_delete_messages?(message)
+        return unless self_can_delete_messages?(message)
+        api.delete_message(chat_id: message.chat.id, message_id: message.message_id)
       end
     end
   end

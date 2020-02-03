@@ -18,7 +18,7 @@ module Telegram
         false
       end
 
-      def user_creator?(messge, id)
+      def user_creator?(message, id)
         chat_member = get_member_info(message, id)
         return true if chat_member['status'] == 'creator'
 

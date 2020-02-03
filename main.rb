@@ -6,7 +6,6 @@ require_rel 'tools'
 token = '' # YOUR API TOKEN GOES BETWEEN THE QUOTES
 
 Telegram::Bot::Client.run(token) do |bot|
-
   bot.listen do |message|
     if message.text
       case Emoji.mode
@@ -14,10 +13,10 @@ Telegram::Bot::Client.run(token) do |bot|
         if bot.self_can_delete_messages?(message) && message.text.has_disallowed?
           bot.delete(message)
         end
-          
+
       when :editing
         if bot.self_can_delete_messages?(message) && message.text.has_disallowed?
-          text = "#{Tools.form_user_link(full_name = true)} said:\n" 
+          text = "#{Tools.form_user_link(message, true)} said:\n"
           text += message.text.allowed
           bot.delete(message)
           bot.send_message(message, text)
@@ -33,11 +32,11 @@ Telegram::Bot::Client.run(token) do |bot|
       if message.reply_to_message
         text = "Your ID is #{message.from.id} \n"
         text += "My ID is #{message.reply_to_message.from.id}"
-        bot.respond_to_user(message, text)
-      else 
+      else
         text = 'Use this command as a reply to any of my messages'
-        bot.respond_to_user(message, text)
       end
+      
+      bot.respond_to_user(message, text)
 
     elsif message.command '/deleting_mode' && message.from_owner?
       Emoji.mode = :deleting
@@ -48,8 +47,8 @@ Telegram::Bot::Client.run(token) do |bot|
     elsif message.command '/skipping_mode' && message.from_owner?
       Emoji.mode = :skipping
 
-    # elsif message.command '/something'
-    #   `block`
+      # elsif message.command '/something'
+      #   `block`
     end # if message.command '/start'
   end # bot.listen
 end # Client.run

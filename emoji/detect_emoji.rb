@@ -2,8 +2,7 @@ require_relative 'emojis'
 require_relative 'exceptions'
 
 module Emoji
-  
-  extend self
+  module_function
 
   attr_accessor :mode
 
@@ -11,24 +10,21 @@ module Emoji
     self.mode = :skipping
   end
 
-  def edit(message, bot)
-    
-  end
+  def edit(message, bot); end
 
   def allowed_characters
-    @allowed_characters = self.emojis + self.exceptions
+    @allowed_characters = emojis + exceptions
     @allowed_characters.join.chars
   end
 
   def allowed?(symbol)
     return true if allowed_characters.include?(symbol)
+
     false
   end
-  
 end
 
 class String
-
   def has_allowed?
     chars.each do |char|
       return true if Emoji.allowed?(char)
