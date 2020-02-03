@@ -7,21 +7,6 @@ token = '1043894792:AAFvVjoNgTkTLEELc-JiAtHt-CibRdSrGoc' # YOUR API TOKEN GOES B
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
-    if message.text
-      if bot.self_can_delete_messages?(message) && message.text.has_disallowed?
-        case Emoji.mode
-        when :deleting
-          bot.delete(message)
-
-        when :editing
-          text = "#{Tools.form_user_link(message, true)}:\n\n"
-          text += message.text.allowed
-          bot.delete(message)
-          bot.send_message(message, text)
-        end
-      end
-    end
-
     if message.command '/start'
       text = 'Greetings, I am EmojiBot2020'
       bot.send_message(message, text)
@@ -48,5 +33,21 @@ Telegram::Bot::Client.run(token) do |bot|
       # elsif message.command '/something'
       #   `block`
     end # if message.command '/start'
+
+    if message.text
+      if bot.self_can_delete_messages?(message) && message.text.has_disallowed?
+        case Emoji.mode
+        when :deleting
+          bot.delete(message)
+
+        when :editing
+          text = "#{Tools.form_user_link(message, true)}:\n\n"
+          text += message.text.allowed
+          bot.delete(message)
+          bot.send_message(message, text)
+        end
+      end
+    end
+    
   end # bot.listen
 end # Client.run
