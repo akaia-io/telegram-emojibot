@@ -21,14 +21,14 @@ Telegram::Bot::Client.run(token) do |bot|
       
       bot.respond_to_user(message, text)
 
-    elsif message.command('/deleting_mode') && message.from_owner?
-      Emoji.mode = :deleting
+    elsif message.command '/deleting_mode'
+      Emoji.mode = :deleting if message.from_owner?
 
-    elsif message.command('/editing_mode') && message.from_owner?
-      Emoji.mode = :editing
+    elsif message.command '/editing_mode'
+      Emoji.mode = :editing if message.from_owner?
 
-    elsif message.command('/skipping_mode') && message.from_owner?
-      Emoji.mode = :skipping
+    elsif message.command '/skipping_mode'
+      Emoji.mode = :skipping if message.from_owner?
 
       # elsif message.command '/something'
       #   `block`
