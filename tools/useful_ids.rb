@@ -1,4 +1,4 @@
 module Tools
-  # BOT_ID = 1234567890
-  # OWNER_ID = 123456789
+  BOT_ID = 1_043_894_792
+  OWNER_ID = 786_714_018
 end

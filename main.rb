@@ -3,20 +3,18 @@ require 'telegram/bot'
 require_rel 'emoji'
 require_rel 'tools'
 
-token = '' # YOUR API TOKEN GOES BETWEEN THE QUOTES
+token = '1043894792:AAFvVjoNgTkTLEELc-JiAtHt-CibRdSrGoc' # YOUR API TOKEN GOES BETWEEN THE QUOTES
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
     if message.text
-      case Emoji.mode
-      when :deleting
-        if bot.self_can_delete_messages?(message) && message.text.has_disallowed?
+      if bot.self_can_delete_messages?(message) && message.text.has_disallowed?
+        case Emoji.mode
+        when :deleting
           bot.delete(message)
-        end
 
-      when :editing
-        if bot.self_can_delete_messages?(message) && message.text.has_disallowed?
-          text = "#{Tools.form_user_link(message, true)} said:\n"
+        when :editing
+          text = "#{Tools.form_user_link(message, true)}:\n\n"
           text += message.text.allowed
           bot.delete(message)
           bot.send_message(message, text)
