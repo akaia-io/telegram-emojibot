@@ -25,7 +25,7 @@ Telegram::Bot::Client.run(token) do |bot|
     end
 
     if message.command '/start'
-      text = 'Вечер в палату, пациенты!'
+      text = 'Greetings, I am EmojiBot2020'
       bot.send_message(message, text)
 
     elsif message.command '/get_id'
