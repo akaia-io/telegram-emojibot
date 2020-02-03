@@ -19,6 +19,7 @@ Telegram::Bot::Client.run(token) do |bot|
         text = 'Use this command as a reply to any of my messages'
       end
       
+=begin      
       bot.respond_to_user(message, text)
 
     elsif message.command '/deleting_mode'
@@ -47,7 +48,7 @@ Telegram::Bot::Client.run(token) do |bot|
           bot.send_message(message, text)
         end
       end
+=end
     end
-
   end # bot.listen
 end # Client.run
