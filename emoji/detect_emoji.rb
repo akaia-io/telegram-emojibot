@@ -6,11 +6,13 @@ module Emoji
 
   attr_accessor :mode
 
-  def initialize
-    self.mode = :skipping
+  def mode
+    @mode ||= :skipping
   end
 
-  def edit(message, bot); end
+  def mode=(value)
+    @mode = value
+  end
 
   def allowed_characters
     @allowed_characters = emojis + exceptions
